@@ -1,0 +1,78 @@
+﻿@using Volo.Abp.UI.Navigation
+@model ApplicationMenuItem
+@{
+    Model.ElementId = Model.ElementId.Replace(".","");
+    var elementId = string.IsNullOrEmpty(Model.ElementId) ? string.Empty : $"id=\"{Model.ElementId}\"";
+    var cssClass = string.IsNullOrEmpty(Model.CssClass) ? string.Empty : Model.CssClass;
+    var disabled = Model.IsDisabled ? "disabled" : string.Empty;
+    var url = string.IsNullOrEmpty(Model.Url) ? "#" : Url.IsLocalUrl(Model.Url) ? Url.Content(Model.Url.EnsureStartsWith('~')) : Model.Url;
+}
+@if (Model.IsLeaf)
+{
+    if (Model.Url != null)
+    {
+        <a class="nav-link @cssClass @disabled" href="@url" target="@Model.Target" @Html.Raw(elementId)>
+            @if (Model.Icon != null)
+            {
+                if (Model.Icon.StartsWith("fa"))
+                {
+                    <div class="sb-nav-link-icon"><i class="@Model.Icon"></i></div>
+                }
+            }
+            @Model.DisplayName
+        </a>
+    }
+}
+else
+{
+    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#@Model.ElementId" aria-expanded="false" aria-controls="@Model.ElementId">
+        @if (Model.Icon != null)
+        {
+            if (Model.Icon.StartsWith("fa"))
+            {
+                <div class="sb-nav-link-icon"><i class="@Model.Icon"></i></div>
+            }
+        }
+        @Model.DisplayName
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+    </a>
+    <div class="collapse" id="@Model.ElementId" aria-labelledby="" data-bs-parent="#@ViewBag.ParentId.ToString()">
+        <nav class="sb-sidenav-menu nav accordion" id="nav_level2">
+            @foreach (var childMenuItem in Model.Items)
+            {
+                @await Html.PartialAsync("~/Themes/Sb/Components/Menu/_MenuItem.cshtml", childMenuItem)
+            }
+        </nav>
+    </div>
+}
+@* <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"> *@
+@*     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div> *@
+@*     Pages *@
+@*     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div> *@
+@* </a> *@
+@* <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion"> *@
+@*     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages"> *@
+@*         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth"> *@
+@*             Authentication *@
+@*             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div> *@
+@*         </a> *@
+@*         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages"> *@
+@*             <nav class="sb-sidenav-menu-nested nav"> *@
+@*                 <a class="nav-link" href="login.html">Login</a> *@
+@*                 <a class="nav-link" href="register.html">Register</a> *@
+@*                 <a class="nav-link" href="password.html">Forgot Password</a> *@
+@*             </nav> *@
+@*         </div> *@
+@*         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError"> *@
+@*             Error *@
+@*             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div> *@
+@*         </a> *@
+@*         <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages"> *@
+@*             <nav class="sb-sidenav-menu-nested nav"> *@
+@*                 <a class="nav-link" href="401.html">401 Page</a> *@
+@*                 <a class="nav-link" href="404.html">404 Page</a> *@
+@*                 <a class="nav-link" href="500.html">500 Page</a> *@
+@*             </nav> *@
+@*         </div> *@
+@*     </nav> *@
+@* </div> *@

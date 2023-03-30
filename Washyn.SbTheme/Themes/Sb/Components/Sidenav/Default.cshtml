@@ -1,0 +1,30 @@
+﻿@using Volo.Abp.MultiTenancy
+@using Volo.Abp.Users
+@using Volo.Abp.SettingManagement
+@using Washyn.SbTheme.Pages.Components.BoxedLayoutSetting
+@using Washyn.SbTheme.Themes.Sb.Components.Menu
+@inject ICurrentTenant CurrentTenant
+@inject ICurrentUser CurrentUser
+@inject ISettingManager SettingManager
+@{
+    var darkBar = Convert.ToBoolean(await SettingManager.GetOrNullForCurrentUserAsync(SbAdminThemeSettingNames.Layout.DarkNavigationBar));
+    var classBar = darkBar ? "dark" : "light";
+}
+<nav class="sb-sidenav accordion shadow-sm sb-sidenav-@classBar" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+        <div class="nav">
+            @await Component.InvokeAsync(typeof(MainNavbarMenuViewComponent))
+        </div>
+    </div>
+    <div class="sb-sidenav-footer">
+        <div class="small">Logged in as:</div>
+        @if (CurrentUser.TenantId != null)
+        {
+            <small><i>@CurrentTenant.Name</i>\</small>@CurrentUser.UserName
+        }
+        else
+        {
+            @CurrentUser.UserName
+        }
+    </div>
+</nav>

@@ -1,0 +1,8 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@model Acme.Samples.Pages.Internal
+@inject IThemeManager ThemeManager
+@{
+    Layout = ThemeManager.CurrentTheme.GetPublicLayout();
+}
+hi

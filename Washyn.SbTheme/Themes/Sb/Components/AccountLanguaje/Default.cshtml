@@ -1,0 +1,9 @@
+﻿@using Volo.Abp.Ui.Branding
+@using Washyn.SbTheme.Themes.Sb.Components.FooterLanguajeSwitch
+@inject IBrandingProvider BrandingProvider
+<div class="row">
+    <div class="col p-4 d-flex justify-content-between">
+        @await Component.InvokeAsync(typeof(FooterLanguajeSwitchViewComponent))
+        <div class="text-muted"><a href="~/" class="text-black-50 text-decoration-none">&copy; @BrandingProvider.AppName @DateTime.Now.Year</a> </div>
+    </div>
+</div>

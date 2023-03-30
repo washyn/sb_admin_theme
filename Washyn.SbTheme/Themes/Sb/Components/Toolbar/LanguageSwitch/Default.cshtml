@@ -1,0 +1,17 @@
+﻿@using System.Linq
+@using Microsoft.AspNetCore.Http.Extensions
+@model Washyn.SbTheme.Themes.Sb.Components.Toolbar.LanguageSwitch.LanguageSwitchViewComponentModel
+@if (Model.OtherLanguages.Any())
+{
+    <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @Model.CurrentLanguage.DisplayName
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+            @foreach (var language in Model.OtherLanguages)
+            {
+                <li><a class="dropdown-item" href="~/Abp/Languages/Switch?culture=@(language.CultureName)&uiCulture=@(language.UiCultureName)&returnUrl=@(System.Net.WebUtility.UrlEncode(Context.Request.GetEncodedPathAndQuery()))">@language.DisplayName</a></li>
+            }
+        </ul>
+    </div> 
+}

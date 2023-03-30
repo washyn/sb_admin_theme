@@ -1,0 +1,23 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Button
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Card
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
+@using Washyn.SbTheme.Pages.Components.BoxedLayoutSetting
+@model Washyn.SbTheme.Pages.Components.BoxedLayoutSetting.UpdateSbThemeSettingViewModel
+
+<abp-script src="/Pages/Components/BoxedLayoutSetting/Default.cshtml.js"></abp-script>
+<abp-card>
+    <abp-card-header>
+        <abp-card-title>
+            Theme settings
+        </abp-card-title>
+    </abp-card-header>
+    <abp-card-body>
+        <form id="@nameof(UpdateSbThemeSettingViewModel)">
+            <abp-input asp-for="BoxedLayout"></abp-input>
+            <abp-input asp-for="DarkNavigationBar"></abp-input>
+            <hr class="mt-2">
+            <abp-button button-type="Primary" type="submit">Save</abp-button>
+        </form>
+    </abp-card-body>
+</abp-card>

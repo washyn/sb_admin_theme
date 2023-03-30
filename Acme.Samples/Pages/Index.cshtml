@@ -1,0 +1,26 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bundling.TagHelpers
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@using Volo.Abp.Users
+@inject ICurrentUser CurrentUser
+@inject IThemeManager ThemeManager
+@model Acme.Samples.Pages.IndexModel
+@{
+    if (CurrentUser.IsAuthenticated)
+    {
+        Layout = ThemeManager.CurrentTheme.GetApplicationLayout();
+    }
+    else
+    {
+        Layout = ThemeManager.CurrentTheme.GetPublicLayout();
+    }
+}
+@section styles {
+    <abp-style abp-if="!CurrentUser.IsAuthenticated" src="/Pages/Index.cshtml.css" />
+}
+@section scripts {
+    <abp-script src="/Pages/Index.cshtml.js" />
+}
+
+<partial abp-if="!CurrentUser.IsAuthenticated" name="Shared/_Landing"/>
+<partial abp-if="CurrentUser.IsAuthenticated" name="Shared/_Home"/>

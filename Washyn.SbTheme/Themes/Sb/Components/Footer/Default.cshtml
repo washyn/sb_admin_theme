@@ -1,0 +1,14 @@
+﻿@using Volo.Abp.Ui.Branding
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Blockquote
+@inject IBrandingProvider BrandingProvider
+
+<footer class="py-3 bg-light mt-auto">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted"><a href="/" class="text-black-50">&copy; @BrandingProvider.AppName @DateTime.Now.Year</a> </div>
+            <div>
+                <a href="#">Terms &amp; Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
